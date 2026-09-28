@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>X Bulk Muter</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<main>
+  <h1>X Bulk Muter <small>v1.6</small></h1>
+  <p class="sub">Scans current mutes first. Add only missing terms, or bulk-unmute matching terms.</p>
+
+  <label for="repoUrl">Optional raw GitHub list URL</label>
+  <input id="repoUrl" type="url" placeholder="https://raw.githubusercontent.com/.../words.md">
+
+  <div class="row">
+    <button id="loadBuiltin" class="secondary">Built-in list</button>
+    <button id="loadRemote" class="secondary">Load repo</button>
+  </div>
+
+  <label for="words">Words / phrases (one per line)</label>
+  <textarea id="words" spellcheck="false"></textarea>
+
+  <div class="row">
+    <label class="inline"><span>Pace</span>
+      <select id="delay">
+        <option value="6000">6 sec — aggressive</option>
+        <option value="10000">10 sec — medium</option>
+        <option value="15000" selected>15 sec — recommended</option>
+        <option value="20000">20 sec — safest</option>
+      </select>
+    </label>
+    <span id="count">0 items</span>
+  </div>
+
+  <label class="inline check">
+    <input id="retry" type="checkbox" checked>
+    <span>Retry failed item after cooldown</span>
+  </label>
+
+  <button id="scan" class="secondary full">Scan current muted words</button>
+  <button id="startAdd" class="primary">Add missing words</button>
+  <button id="startUnmute" class="warning">Bulk unmute matching words</button>
+  <button id="stop" class="danger">Stop</button>
+  <button id="reset" class="secondary full">Reset saved progress</button>
+
+  <p id="status">Open X → Muted words before starting.</p>
+</main>
+<script src="popup.js"></script>
+</body>
+</html>
