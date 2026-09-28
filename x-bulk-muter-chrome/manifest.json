@@ -1,16 +1,18 @@
 {
   "manifest_version": 3,
   "name": "X Bulk Muter",
-  "version": "1.6.0",
-  "description": "Bulk-add and bulk-unmute X muted words with existing-word scanning, adaptive 429 backoff, and resume support.",
+  "version": "1.8.0",
+  "description": "Bulk mute/unmute for X with persistent queue state, verified saves, and navigation-safe adaptive 429 recovery.",
   "permissions": [
     "storage",
-    "tabs"
+    "tabs",
+    "webRequest"
   ],
   "host_permissions": [
-    "https://x.com/*",
+    "https://api.x.com/*",
+    "https://raw.githubusercontent.com/*",
     "https://twitter.com/*",
-    "https://raw.githubusercontent.com/*"
+    "https://x.com/*"
   ],
   "action": {
     "default_popup": "popup.html",

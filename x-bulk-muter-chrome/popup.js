@@ -69,6 +69,19 @@ $("startAdd").onclick=async()=>{
   try{
     const tab=await activeXTab();
     await persistSettings();
+    await chrome.storage.local.set({
+      bulkJob:{
+        active:true,
+        mode:"add",
+        words,
+        delay:Number(delayEl.value),
+        retry:retryEl.checked,
+        index:0,
+        backoffMinutes:0,
+        cooldownUntil:0,
+        pendingWord:null
+      }
+    });
     const r=await chrome.tabs.sendMessage(tab.id,{
       type:"START_BULK_MUTE",
       words,
@@ -88,6 +101,19 @@ $("startUnmute").onclick=async()=>{
   try{
     const tab=await activeXTab();
     await persistSettings();
+    await chrome.storage.local.set({
+      bulkJob:{
+        active:true,
+        mode:"unmute",
+        words,
+        delay:Number(delayEl.value),
+        retry:retryEl.checked,
+        index:0,
+        backoffMinutes:0,
+        cooldownUntil:0,
+        pendingWord:null
+      }
+    });
     const r=await chrome.tabs.sendMessage(tab.id,{
       type:"START_BULK_UNMUTE",
       words,
@@ -105,6 +131,7 @@ $("stop").onclick=async()=>{
     const tab=await activeXTab();
     await chrome.tabs.sendMessage(tab.id,{type:"STOP_BULK_MUTE"});
   }catch{}
+  await chrome.storage.local.set({bulkJob:{active:false}});
   statusEl.textContent="Stop requested.";
 };
 
@@ -113,7 +140,8 @@ $("reset").onclick=async()=>{
     "bulkMuteIndex",
     "bulkMuteBackoffMinutes",
     "bulkMuteCooldownUntil",
-    "bulkMuteCooldownReason"
+    "bulkMuteCooldownReason",
+    "bulkJob"
   ]);
   statusEl.textContent="Saved progress reset.";
 };
